@@ -40,6 +40,8 @@ train_all = cbind(train_subjects, train_activities, train_raw)
 colnames(train_all) = column_names
 train = train_all[, keep_variables]
 train = cbind(dataset='training', train)
+str(train)
+summary(train)
 ncol(train)
 
 # Raw test data
@@ -54,6 +56,8 @@ test_all = cbind(test_subjects, test_activities, test_raw)
 colnames(test_all) = column_names
 test = test_all[, keep_variables]
 test = cbind(dataset='test', test)
+str(test)
+summary(test)
 ncol(test)
 
 # Combine train and test datasets
