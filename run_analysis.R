@@ -87,5 +87,5 @@ summary(tidy_dataset)
 View(tidy_dataset)
 
 write.csv(tidy_dataset, '../tidy_dataset.csv')
-write.csv(tidy_dataset, '../tidy_dataset.txt', row.names = F)
+write.table(tidy_dataset, '../tidy_dataset.txt', row.names = F)
 
