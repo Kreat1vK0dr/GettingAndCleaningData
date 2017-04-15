@@ -21,7 +21,7 @@ This dataset was constructed in R from the original UCI HAR Dataset using the fo
 Row reference.
 
 ### subject
-An integer reference to the subject the measurements from the original dataset were taken from.
+An integer reference of the subject the measurements from the original dataset were taken from.
 
 ### activity
 Description of the type of activity the subject performed while the measurements were taken.
