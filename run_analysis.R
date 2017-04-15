@@ -25,8 +25,8 @@ filter_variables = function (x) {
   grepl('mean\\(\\)|std\\(\\)', x)
 }
 keep_variables_raw = sapply(variable_names, filter_variables)
-keep_variables = c(c(TRUE, TRUE, TRUE), keep_variables_raw)
-column_names = c(c('id', 'subject', 'activity'), variable_names)
+keep_variables = c(c(TRUE, TRUE), keep_variables_raw)
+column_names = c(c('subject', 'activity'), variable_names)
 
 # Raw training data
 train_raw = read.table('./train/X_train.txt', header=F)
@@ -34,18 +34,12 @@ train_subjects = read.table('./train/subject_train.txt', header=F)
 train_activities = read.table('./train/y_train.txt', header=F)
 colnames(train_activities) = "activity_id"
 
-# Merge train dataset keeping only mean and standard deviation measurements
-id = 1:nrow(train_raw)
-train_raw = cbind(id=id, train_raw)
-train_subjects = cbind(id=id, train_subjects)
-train_activities = cbind(id=id, train_activities)
-train_activities = join(train_activities, activity_labels, by = 'activity_id')[,c(1,3)]
-train_merge = merge(train_subjects, train_activities, by = 'id')
-train_all = merge(train_merge, train_raw, by = 'id')
+# Combine subject-, activity-, and feature-vectors of the train datasets, keeping only mean and standard deviation measurements
+train_activities = join(train_activities, activity_labels, by = 'activity_id') %>% select(activity)
+train_all = cbind(train_subjects, train_activities, train_raw)
 colnames(train_all) = column_names
 train = train_all[, keep_variables]
-train = cbind(dataset='training', train)  %>% tbl_df()
-summarize(train)
+train = cbind(dataset='training', train)
 ncol(train)
 
 # Raw test data
@@ -54,27 +48,20 @@ test_subjects = read.table('./test/subject_test.txt', header=F)
 test_activities = read.table('./test/y_test.txt', header=F)
 colnames(test_activities) = "activity_id"
 
-# Merge test dataset keeping only mean and standard deviation measurements
-id = 1:nrow(test_raw)
-test_raw = cbind(id=id, test_raw)
-test_subjects = cbind(id=id, test_subjects)
-test_activities = cbind(id=id, test_activities)
-test_activities = join(test_activities, activity_labels, by = 'activity_id')[,c(1,3)]
-test_merge = merge(test_subjects, test_activities, by = 'id')
-test_all = merge(test_merge, test_raw, by = 'id')
+# Combine subject-, activity-, and feature-vectors of the test datasets, keeping only mean and standard deviation measurements
+test_activities = join(test_activities, activity_labels, by = 'activity_id') %>% select(activity)
+test_all = cbind(test_subjects, test_activities, test_raw)
 colnames(test_all) = column_names
 test = test_all[, keep_variables]
-test = cbind(dataset='test', test) %>% tbl_df()
-summarize(test)
+test = cbind(dataset='test', test)
 ncol(test)
 
 # Combine train and test datasets
 dataset = bind_rows(train, test)
-dataset = dataset %>% mutate_if(is.character, as.factor) %>% select(-id)
+dataset = dataset %>% mutate_if(is.character, as.factor)
 # OR
 # dataset = dataset %>% as.data.frame(unclass()) %>% tbl_df
 str(dataset)
-summarize(dataset)
 summary(dataset)
 View(dataset)
 
