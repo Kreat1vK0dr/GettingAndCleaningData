@@ -81,8 +81,12 @@ View(dataset)
 # Tidy dataset
 dataMelt = melt(dataset, id=c("subject", "activity"), measure.vars = variable_names[keep_variables_raw])
 tidy_dataset = ddply(dataMelt,.(subject, activity, variable), summarize,average=mean(value))
+tidy_dataset = cbind(id=1:nrow(tidy_dataset), tidy_dataset)
 summary(tidy_dataset)
 View(tidy_dataset)
+
+write.csv(tidy_dataset, '../tidy_dataset.csv')
+write.csv(tidy_dataset, '../tidy_dataset.txt', row.names = F)
 
 
 
