@@ -13,7 +13,7 @@ This dataset was constructed in R from the original UCI HAR Dataset using the fo
 - (2.a) To keep only the mean and standard deviation measurements of each variable I used the grep function to create a logical vector of column names to keep.
 ### Creating the tidy dataset
 - (3) Used melt function on the final dataset created above to transform column variables from the original dataset into a single "variable" column with their values in a "value" column.
-- (4) The final step was to use a ddply function on the "melted" data, splitting by subject, activity and the newly created variable column passing "average=mean(value)" to the summarize function to achieve the average for each variable for each activty and for each subject.
+- (4) The final step was to use a ddply function on the "melted" data, splitting by subject, activity and the newly created variable column passing "average=mean(value)" to the summarize function to achieve the average for each variable for each activity and for each subject.
 
 ## Variables
 
