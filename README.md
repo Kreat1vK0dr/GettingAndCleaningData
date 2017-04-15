@@ -5,8 +5,8 @@ This is a repository for the Coursera course 'Getting and Cleaning Data' course 
 ### run_analysis.R
 This is a script that reads and manipulates the data from the original UCI HAR Datasets to construct a new tidy data set.
 
-### tidy_dataset.csv
-An exported copy of the dataset generated from the `run_analysis.R` script.
+### tidy_dataset.txt & tidy_dataset.csv
+Exported copies of the dataset generated from the `run_analysis.R` script.
 
 ### CodeBook.md
 Brief description of the methods used in obtaining the final tidy dataset as well as its variables.
