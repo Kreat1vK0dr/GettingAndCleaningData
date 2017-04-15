@@ -45,7 +45,8 @@ train_all = merge(train_merge, train_raw, by = 'id')
 colnames(train_all) = column_names
 train = train_all[, keep_variables]
 train = cbind(dataset='training', train)  %>% tbl_df()
-summarize(train)
+str(train)
+summary(train)
 ncol(train)
 
 # Raw test data
@@ -65,7 +66,8 @@ test_all = merge(test_merge, test_raw, by = 'id')
 colnames(test_all) = column_names
 test = test_all[, keep_variables]
 test = cbind(dataset='test', test) %>% tbl_df()
-summarize(test)
+str(test)
+summary(test)
 ncol(test)
 
 # Combine train and test datasets
@@ -74,7 +76,6 @@ dataset = dataset %>% mutate_if(is.character, as.factor) %>% select(-id)
 # OR
 # dataset = dataset %>% as.data.frame(unclass()) %>% tbl_df
 str(dataset)
-summarize(dataset)
 summary(dataset)
 View(dataset)
 
